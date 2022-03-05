@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { AppContext } from '../context/AppContext';
+import { useRouter } from 'next/router'
 import axios from 'axios';
 import Typography from '@mui/material/Typography';
 import List from '@mui/material/List';
@@ -21,20 +22,23 @@ const config = {
 
 export const Confirm = ({ activeStep, setActiveStep, handleBack,  steps })  => {
     const { state, dispatch } = useContext(AppContext);
-    const { items, shipping, user, totalAmount } = state
+    const { items, shipping, consumer, totalAmount } = state
+    const router = useRouter()
     
     useEffect(()=>{
         console.log(state)
     },[])
-    // console.log(state)
 
-    const handleClick = () => {
-       const res = axios.post('http://localhost:5000/api/order', state, config)
-        // const res = axios.post('https://staging.api.scalapay.com/v2/orders', state, config)
-
-        console.log("state => ", state)
-        console.log("res => ", res)
-        // setActiveStep(activeStep + 1);
+    const handleClick = async () => {
+       const res = await axios.post('http://localhost:5000/api/order', state, config)
+        try{
+            console.log(res.data)
+            // setActiveStep(activeStep + 1);
+            router.push(res.data.checkoutUrl)
+        } catch(err){
+            console.error(err)
+        }
+     
     }
 
   return (
@@ -62,9 +66,9 @@ export const Confirm = ({ activeStep, setActiveStep, handleBack,  steps })  => {
           <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>
             User Info
           </Typography>
-          <Typography gutterBottom>{user.givenName} {user.sername}</Typography>
-          <Typography gutterBottom>{user.email}</Typography>
-          {user.phoneNumber && <Typography gutterBottom>{user.phoneNumber}</Typography>}
+          <Typography gutterBottom>{consumer.givenNames} {consumer.sername}</Typography>
+          <Typography gutterBottom>{consumer.email}</Typography>
+          {consumer.phoneNumber && <Typography gutterBottom>{consumer.phoneNumber}</Typography>}
 
         </Grid>
         <Grid item container direction="column" xs={12} sm={6}>

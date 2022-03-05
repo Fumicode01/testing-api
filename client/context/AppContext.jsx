@@ -2,9 +2,9 @@ import { createContext, useReducer } from 'react'
 
 
 const initialState = {
-    user:{
+    consumer:{
         email: null,
-        givenName: null,
+        givenNames: null,
         sername: null,
         phoneNumber: null
     },
@@ -44,7 +44,7 @@ export const AppContext = createContext({state:initialState, dispatch:()=>{}})
 const appReducer = (state, action) => {
     switch(action.type){
         case "SET_USER":
-            return {...state, user:action.payload}
+            return {...state, consumer:action.payload}
         case "SET_SHIPPING":
             return {...state, shipping:action.payload}
     }

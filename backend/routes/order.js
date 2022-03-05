@@ -1,21 +1,28 @@
 const router = require("express").Router();
-const sdk = require('api')('@scalapaydocs/v1.0#1mld74kq6wjpia');
 const dotenv = require("dotenv");
+const axios = require("axios");
 dotenv.config();
 
-// const config = {
-//     Headers:{
-//         'Authorization': `Bearer qhtfs87hjnc12kkos`
-//     }
-// }
 
 router.post("/order",  async (req, res) => {
-    sdk.post('/v2/orders', req.body, {Authorization: "Bearer qhtfs87hjnc12kkos"})
-    // sdk.post('/v2/orders', req.body, config)
-        .then(snapshot => res.status(200).json(snapshot))
+    console.log(JSON.stringify(req.body))
+    const config = {
+        method: 'post',
+        url: 'https://staging.api.scalapay.com/v2/orders',
+        headers: { 
+          'Accept': 'application/json', 
+          'Authorization': 'Bearer qhtfs87hjnc12kkos', 
+          'Content-Type': 'application/json'
+        },
+        data : req.body
+      };
+      axios(config)
+        .then(snapshot => {
+            console.log(snapshot.data)
+            res.status(200).json(snapshot.data);
+        })
         .catch(err => {
-            console.log(err);
-            res.status(400).json(err)
+            console.log(err)
         });
   });
 

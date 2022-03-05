@@ -9,22 +9,22 @@ import TextField from '@mui/material/TextField';
 export const UserForm = ({ activeStep, setActiveStep, handleBack,  steps }) => {
     const { state, dispatch } = useContext(AppContext);
     const [user, setUser] = useState({
-        givenName: '',
+        givenNames: '',
         surname: '',
         email: '',
         phoneNumber: '',
     });
 
-    const {givenName, surname, email, phoneNumber} = state.user;
+    const {givenNames, surname, email, phoneNumber} = state.consumer;
 
     useEffect(()=> {
-        {givenName && setUser({
-            givenName: givenName,
+        {givenNames && setUser({
+            givenNames: givenNames,
             surname: surname,
             email: email,
             phoneNumber: phoneNumber,
         })}
-    },[givenName, surname, email, phoneNumber])
+    },[givenNames, surname, email, phoneNumber])
 
     const handleChange = (e) => {
         setUser({...user, [e.target.name]: e.target.value});
@@ -46,13 +46,13 @@ export const UserForm = ({ activeStep, setActiveStep, handleBack,  steps }) => {
             <Grid item xs={12} sm={6}>
             <TextField
                 required
-                id="givenName"
-                name="givenName"
+                id="givenNames"
+                name="givenNames"
                 label="First name"
                 fullWidth
                 autoComplete="given-name"
                 variant="standard"
-                value={user.givenName}
+                value={user.givenNames}
                 onChange={handleChange}
             />
             </Grid>

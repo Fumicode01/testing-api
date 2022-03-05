@@ -10,7 +10,7 @@ import Button from '@mui/material/Button';
 
 export const AddressForm = ({ activeStep, setActiveStep, handleBack,  steps }) => {
     const { state, dispatch } = useContext(AppContext);
-    const phoneNumber = state.user.phoneNumber
+    const phoneNumber = state.consumer.phoneNumber
     const [formValue, setFormValue] = useState({
         line1: '',
         name: '',
