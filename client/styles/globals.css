@@ -14,3 +14,7 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.error_message{
+    background-color: #ef9a9a;
+}

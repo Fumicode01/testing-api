@@ -9,8 +9,7 @@ import Button from '@mui/material/Button';
 // import Checkbox from '@mui/material/Checkbox';
 
 export const AddressForm = ({ activeStep, setActiveStep, handleBack,  steps }) => {
-    const { state, dispatch } = useContext(AppContext);
-    const phoneNumber = state.consumer.phoneNumber
+    const { dispatch } = useContext(AppContext);
     const [formValue, setFormValue] = useState({
         line1: '',
         name: '',
@@ -19,10 +18,6 @@ export const AddressForm = ({ activeStep, setActiveStep, handleBack,  steps }) =
         countryCode: '',
         phoneNumber: '',
     });
-    useEffect(()=> {
-        console.log(state)
-    },[state])
-
 
     const handleChange = (e) => {
         setFormValue({...formValue, [e.target.name]: e.target.value});
@@ -58,7 +53,7 @@ export const AddressForm = ({ activeStep, setActiveStep, handleBack,  steps }) =
                 required
                 id="name"
                 name="name"
-                label="Country Name"
+                label="Recipient name"
                 fullWidth
                 autoComplete="country-name"
                 variant="standard"
@@ -96,6 +91,7 @@ export const AddressForm = ({ activeStep, setActiveStep, handleBack,  steps }) =
                 id="countryCode"
                 name="countryCode"
                 label="CountryCode"
+                placeholder='example: AU, FR, NZ'
                 fullWidth
                 variant="standard"
                 onChange={handleChange}
@@ -106,8 +102,7 @@ export const AddressForm = ({ activeStep, setActiveStep, handleBack,  steps }) =
             <TextField
                 id="phone"
                 name="phoneNumber"
-                label="Mobile Phone"
-                value={phoneNumber}
+                label="Recipient Mobile Phone"
                 fullWidth
                 autoComplete="mobile phone"
                 variant="standard"
@@ -125,7 +120,6 @@ export const AddressForm = ({ activeStep, setActiveStep, handleBack,  steps }) =
                 <Button
                     variant="contained"
                     type="submit"
-                    // onClick={handleNext}
                     sx={{ mt: 3, ml: 1 }}
                 >
                     {activeStep === steps.length - 1 ? 'Place order' : 'Next'}

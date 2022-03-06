@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 import { AppContext } from '../context/AppContext';
 import { useRouter } from 'next/router'
 import axios from 'axios';
@@ -15,34 +15,30 @@ const config = {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer qhtfs87hjnc12kkos',
     }
-  
 }
 
-
-
 export const Confirm = ({ activeStep, setActiveStep, handleBack,  steps })  => {
-    const { state, dispatch } = useContext(AppContext);
-    const { items, shipping, consumer, totalAmount } = state
-    const router = useRouter()
-    
-    useEffect(()=>{
-        console.log(state)
-    },[])
-
+    const { state } = useContext(AppContext);
+    const { items, shipping, consumer, totalAmount } = state;
+    const router = useRouter();
+    const [error, setError] = useState(null);    
     const handleClick = async () => {
-       const res = await axios.post('http://localhost:5000/api/order', state, config)
-        try{
-            console.log(res.data)
-            // setActiveStep(activeStep + 1);
-            router.push(res.data.checkoutUrl)
-        } catch(err){
-            console.error(err)
-        }
-     
+        axios.post('http://localhost:5000/api/order', state, config)
+            .then(res => {
+                setActiveStep(activeStep + 1);
+                router.push(res.data.checkoutUrl);
+            }).catch((err) => {
+                if(err.response.status === 400){
+                    setError("Please check your details and try again.");
+                }
+                if(err.response.status === 401){
+                    setError("Authentication failed. Please login again or Contact us.");
+                }
+            })
     }
-
   return (
     <React.Fragment>
+        {error && <Typography variant="h6" className="error_message">{error}</Typography>}
       <Typography variant="h6" gutterBottom>
         Order summary
       </Typography>
