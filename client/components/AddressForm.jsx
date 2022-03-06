@@ -9,7 +9,7 @@ import Button from '@mui/material/Button';
 // import Checkbox from '@mui/material/Checkbox';
 
 export const AddressForm = ({ activeStep, setActiveStep, handleBack,  steps }) => {
-    const { dispatch } = useContext(AppContext);
+    const { state, dispatch } = useContext(AppContext);
     const [formValue, setFormValue] = useState({
         line1: '',
         name: '',
@@ -18,6 +18,18 @@ export const AddressForm = ({ activeStep, setActiveStep, handleBack,  steps }) =
         countryCode: '',
         phoneNumber: '',
     });
+    const {line1, name, suburb, postcode, countryCode, phoneNumber} = state.shipping;
+
+    useEffect(()=> {
+        {line1 && setFormValue({
+            line1: line1,
+            name: name,
+            suburb: suburb,
+            postcode: postcode,
+            countryCode: countryCode,
+            phoneNumber: phoneNumber,
+        })}
+    },[line1, name, suburb, postcode, countryCode, phoneNumber])
 
     const handleChange = (e) => {
         setFormValue({...formValue, [e.target.name]: e.target.value});
@@ -45,6 +57,7 @@ export const AddressForm = ({ activeStep, setActiveStep, handleBack,  steps }) =
                 fullWidth
                 autoComplete="shipping address-line1"
                 variant="standard"
+                value={formValue.line1}
                 onChange={handleChange}
             />
             </Grid>
@@ -57,6 +70,7 @@ export const AddressForm = ({ activeStep, setActiveStep, handleBack,  steps }) =
                 fullWidth
                 autoComplete="country-name"
                 variant="standard"
+                value={formValue.name}
                 onChange={handleChange}
 
             />
@@ -69,6 +83,7 @@ export const AddressForm = ({ activeStep, setActiveStep, handleBack,  steps }) =
                 fullWidth
                 autoComplete="shipping address-level2"
                 variant="standard"
+                value={formValue.suburb}
                 onChange={handleChange}
 
             />
@@ -81,6 +96,7 @@ export const AddressForm = ({ activeStep, setActiveStep, handleBack,  steps }) =
                 label="postcode"
                 fullWidth
                 variant="standard"
+                value={formValue.postcode}
                 onChange={handleChange}
 
             />
@@ -94,6 +110,7 @@ export const AddressForm = ({ activeStep, setActiveStep, handleBack,  steps }) =
                 placeholder='example: AU, FR, NZ'
                 fullWidth
                 variant="standard"
+                value={formValue.countryCode}
                 onChange={handleChange}
 
             />
@@ -106,6 +123,7 @@ export const AddressForm = ({ activeStep, setActiveStep, handleBack,  steps }) =
                 fullWidth
                 autoComplete="mobile phone"
                 variant="standard"
+                value={formValue.phoneNumber}
                 onChange={handleChange}
 
             />
