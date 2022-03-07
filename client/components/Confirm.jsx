@@ -29,11 +29,20 @@ export const Confirm = ({ activeStep, setActiveStep, handleBack,  steps })  => {
                 setActiveStep(activeStep + 1);
                 router.push(res.data.checkoutUrl);
             }).catch((err) => {
-                if(err.response.status === 400){
+                if(err.response && err.response.status === 400){
                     setError("Please check your details and try again.");
+                    console.log(err.response)
+                    console.error(err.response)
                 }
-                if(err.response.status === 401){
+                if(err.response && err.response.status === 401){
+                    console.log(err.response)
+                    console.error(err.response)
                     setError("Authentication failed. Please login again or Contact us.");
+                }
+                else {
+                    console.log(err)
+                    console.error(err)
+                    setError("This is an internal Error. Please Contact us.");
                 }
             })
     }
