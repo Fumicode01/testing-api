@@ -38,10 +38,10 @@ export const UserForm = ({ activeStep, setActiveStep, handleBack,  steps }) => {
 
   return (
     <React.Fragment>
-      <Typography variant="h6" gutterBottom>
+      <Typography variant="h6" gutterBottom data-testid="title">
         User Infomation
       </Typography>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} data-testid="form">
         <Grid container spacing={3}>
             <Grid item xs={12} sm={6}>
             <TextField
@@ -54,6 +54,7 @@ export const UserForm = ({ activeStep, setActiveStep, handleBack,  steps }) => {
                 variant="standard"
                 value={user.givenNames}
                 onChange={handleChange}
+                data-testid="givenNamesField"
             />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -67,6 +68,8 @@ export const UserForm = ({ activeStep, setActiveStep, handleBack,  steps }) => {
                 variant="standard"
                 value={user.surname}
                 onChange={handleChange}
+                data-testid="surnameField"
+
 
             />
             </Grid>
@@ -81,6 +84,7 @@ export const UserForm = ({ activeStep, setActiveStep, handleBack,  steps }) => {
                 variant="standard"
                 value={user.email}
                 onChange={handleChange}
+                data-testid="emailField"
 
             />
             </Grid>
@@ -94,6 +98,7 @@ export const UserForm = ({ activeStep, setActiveStep, handleBack,  steps }) => {
                 variant="standard"
                 value={user.phoneNumber}
                 onChange={handleChange}
+                data-testid="phoneNumberField"
 
             />
             </Grid>
@@ -109,6 +114,7 @@ export const UserForm = ({ activeStep, setActiveStep, handleBack,  steps }) => {
                     type="submit"
                     // onClick={handleNext}
                     sx={{ mt: 3, ml: 1 }}
+                    data-testid="nextButton"
                 >
                     {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
                 </Button>

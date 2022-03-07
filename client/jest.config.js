@@ -1,13 +1,26 @@
+
 module.exports = {
     rootDir: '../client',
-    setupFilesAfterEnv: ["./jest.setup.js"],
-    transform: {
-        '\\.js$': ['babel-jest', { configFile: './config/.babelrc' }]
-    },
+    roots: ['<rootDir>'],
+    testEnvironment: 'jsdom',
+    setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
+    moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'svg'],
     moduleNameMapper: {
-        "\\.(css|less|scss|sss|styl)$": "<rootDir>/node_modules/jest-css-modules"
+      '\\.svg': '<rootDir>/test/utils/svgr.js',
+      '^@components/(.*)$': '<rootDir>/components/$1',
+      '^@context/(.*)$': '<rootDir>/context/$1',
+      '^@layouts/(.*)$': '<rootDir>/layouts/$1',
+      '^@pages/(.*)$': '<rootDir>/pages/$1',
+      '^@public/(.*)$': '<rootDir>/public/$1',
+      '^@styles/(.*)$': '<rootDir>/styles/$1',
+      '^@providers/(.*)$': '<rootDir>/providers/$1',
+      '^@utils/(.*)$': '<rootDir>/utils/$1',
+      '^@api/(.*)$': '<rootDir>/api/$1',
+      '\\.(scss|css)$': 'identity-obj-proxy'
     },
-    verbose: true,
-    collectCoverage: true,
-    coveragePathIgnorePatterns: [ "<rootDir>/test/test-utils.js" ]
-};
+    testPathIgnorePatterns: ['/node_modules/', '/.next/'],
+    transformIgnorePatterns: ['[/\\\\]node_modules[/\\\\].+\\.(ts|tsx)$'],
+    transform: {
+      '^.+\\.(js|jsx|ts|tsx)$': 'babel-jest'
+    }
+  };

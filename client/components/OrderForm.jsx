@@ -88,7 +88,6 @@ export default function OrderForm() {
                 ) : (
                 <React.Fragment>
                     {getStepContent(activeStep)}
-                    
                 </React.Fragment>
                 )}
           </React.Fragment>

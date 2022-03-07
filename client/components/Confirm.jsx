@@ -22,8 +22,9 @@ export const Confirm = ({ activeStep, setActiveStep, handleBack,  steps })  => {
     const { items, shipping, consumer, totalAmount } = state;
     const router = useRouter();
     const [error, setError] = useState(null);    
-    const handleClick = async () => {
-        axios.post('http://localhost:5000/api/order', state, config)
+
+    const sendOrder = (data) => {
+        axios.post('http://localhost:5000/api/order', data, config)
             .then(res => {
                 setActiveStep(activeStep + 1);
                 router.push(res.data.checkoutUrl);
@@ -36,9 +37,14 @@ export const Confirm = ({ activeStep, setActiveStep, handleBack,  steps })  => {
                 }
             })
     }
+
+    const handleClick = async () => {
+        sendOrder(state);
+    }
+
   return (
     <React.Fragment>
-        {error && <Typography variant="h6" className="error_message">{error}</Typography>}
+        {error && <Typography variant="h6" className="error_message" data-testid="error" >{error}</Typography>}
       <Typography variant="h6" gutterBottom>
         Order summary
       </Typography>
@@ -82,11 +88,11 @@ export const Confirm = ({ activeStep, setActiveStep, handleBack,  steps })  => {
                     Back
                     </Button>
                 )}
-
                 <Button
                     variant="contained"
                     onClick={handleClick}
                     sx={{ mt: 3, ml: 1 }}
+                    data-testid="confirm-order"
                 >
                     {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
                 </Button>
