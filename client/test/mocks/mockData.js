@@ -26,3 +26,40 @@ export const axiosErrorResponse401 = {
     }
 }
 
+export const mockGlobalState = {
+    consumer:{
+        email: 'sample@email.com',
+        givenNames: 'sampleFirst',
+        surname: 'sampleSername',
+        phoneNumber: '041234567'
+    },
+    items: [
+        {
+            price:{
+                amount:"100",
+                currency:"EUR"
+            },
+            brand:"Apple",
+            category:"Electronics",
+            name:"iPhone X",
+            quantity:1,
+            sku:"APPLEIPHONEX"
+        }
+    ],
+    shipping:{
+        countryCode:'AU',
+        line1:'Halifax Street',
+        name:'John',
+        phoneNumber:'0412345434',
+        postcode:'2000',
+        suburb:'Sydney'
+    },
+    merchant:{
+        redirectCancelUrl:"http://localhost:3000/cancel",
+        redirectConfirmUrl:"http://localhost:3000/confirm",
+    },
+    totalAmount:{
+        amount:"100",
+        currency:"EUR"
+    }
+}

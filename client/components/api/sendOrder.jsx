@@ -1,9 +1,8 @@
 import React from 'react'
-import { useRouter } from 'next/router'
+import axios from 'axios'
 
-export const SendOrder = () => {
-    const router = useRouter();
-
+export const SendOrder = async (state, activeStep, setActiveStep, setError, setRedirectUrl) => {
+    console.log(state)
     const config = {
         headers: {
             'Content-Type': 'application/json',
@@ -11,15 +10,23 @@ export const SendOrder = () => {
         }
     }
 
-    axios.post('http://localhost:5000/api/order', data, config)
+    await axios.post('http://localhost:5000/api/order', state, config)
             .then(res => {
-                return res.data
+                setActiveStep(activeStep + 1);
+                console.log(res.data.checkoutUrl)
+                setRedirectUrl(res.data.checkoutUrl);
             }).catch((err) => {
                 if(err.response.status === 400){
-                    return "Please check your details and try again.";
+                    setError("Please check your details and try again.");
+                    // throw new Error(err.response.statusText);
                 }
                 if(err.response.status === 401){
-                    return "Authentication failed. Please login again or Contact us.";
+                    setError("Authentication failed. Please login again or Contact us.");
+                    // throw new Error(err.response.statusText);
+                }
+                else {
+                    setError("This is an internal Error. Please Contact us.");
+                    throw new Error(err);
                 }
             })
 }

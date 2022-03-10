@@ -5,7 +5,7 @@ const initialState = {
     consumer:{
         email: null,
         givenNames: null,
-        sername: null,
+        surname: null,
         phoneNumber: null
     },
     items: [
