@@ -18,11 +18,9 @@ export const SendOrder = async (state, activeStep, setActiveStep, setError, setR
             }).catch((err) => {
                 if(err.response.status === 400){
                     setError("Please check your details and try again.");
-                    // throw new Error(err.response.statusText);
                 }
                 if(err.response.status === 401){
                     setError("Authentication failed. Please login again or Contact us.");
-                    // throw new Error(err.response.statusText);
                 }
                 else {
                     setError("This is an internal Error. Please Contact us.");

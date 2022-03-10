@@ -69,8 +69,6 @@ export const UserForm = ({ activeStep, setActiveStep, handleBack,  steps }) => {
                 value={user.surname}
                 onChange={handleChange}
                 data-testid="surnameField"
-
-
             />
             </Grid>
             <Grid item xs={12}>
@@ -85,7 +83,6 @@ export const UserForm = ({ activeStep, setActiveStep, handleBack,  steps }) => {
                 value={user.email}
                 onChange={handleChange}
                 data-testid="emailField"
-
             />
             </Grid>
             <Grid item xs={12}>
@@ -99,7 +96,6 @@ export const UserForm = ({ activeStep, setActiveStep, handleBack,  steps }) => {
                 value={user.phoneNumber}
                 onChange={handleChange}
                 data-testid="phoneNumberField"
-
             />
             </Grid>
             <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
@@ -108,11 +104,9 @@ export const UserForm = ({ activeStep, setActiveStep, handleBack,  steps }) => {
                     Back
                     </Button>
                 )}
-
                 <Button
                     variant="contained"
                     type="submit"
-                    // onClick={handleNext}
                     sx={{ mt: 3, ml: 1 }}
                     data-testid="nextButton"
                 >

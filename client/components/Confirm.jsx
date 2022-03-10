@@ -64,7 +64,6 @@ export const Confirm = ({ activeStep, setActiveStep, handleBack,  steps })  => {
             <Typography variant="body2">{item.price.amount}</Typography>
           </ListItem>
         ))}
-
         <ListItem sx={{ py: 1, px: 0 }}>
           <ListItemText primary="Total" />
           <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
